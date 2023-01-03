@@ -220,109 +220,116 @@
 </html>
 
 <style>
-    #connectWallet {
-        background-color: #52575D;
-        border: 4px solid #41444B;
-        color: #CABFAB;
-        border-radius: 10px;
-        padding: 15px;
-        cursor: pointer;
-        font-size: 30px;
-        margin-left: 810px;
-        margin-top: 30px;
-    }
+	body {
+		background-color: #5F7161;
+	}
 
-    #testament {
-        display: flex;
-        justify-content: center;
-		font-size: 50px;
-		color: #CABFAB;
-		background-color: #52575D;
-		border: 4px solid #41444B;
-		border-radius: 10px;
-		margin-top: 50px;
-    }
-    #amount {
-        display: flex;
-        justify-content: center;
-		font-size: 50px;
-		color: #CABFAB;
-		background-color: #52575D;
-		border: 4px solid #41444B;
-		border-radius: 10px;
-		margin-top: 50px;
-    }
+	#header {
+		font-size: 30px;
+		font-weight: bold;
+		text-align: center;
+		color: #6D8B74;
+		background-color: wheat;
+		padding: 10px;
+		border-radius: 15px;
+		width: 500px;
+		margin: auto;
+		margin-top: 250px;
+	}
 
-    #form {
-        display: flex;
-        justify-content: center;
-        margin-top: 50px;
-        font-size: 30px;
-    }
+	#view-btn {
+		background-color: wheat;
+		color: #6D8B74;
+		border: none;
+		padding: 15px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: flex;
+		font-size: 16px;
+		margin: auto;
+		cursor: pointer;
+		margin-top: 30px;
+	}
 
-    #view-btn {
-        background-color: #52575D;
-        border: 4px solid #41444B;
-        color: #CABFAB;
-        border-radius: 10px;
-        padding: 15px;
-        font-size: 30px;
-        margin-top: 30px;
-        margin-left: 780px;
-    }
+	#connectWallet{
+		background-color: wheat;
+		border: none;
+		color: #6D8B74;
+		padding: 15px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin-left: 850px;
+		margin-top: 30px;
+		cursor: pointer;
+	}
 
-    #header {
-        text-align: center;
-        border: 3px ridge #41444B;
-        background-color: #52575D;
-        color: #CABFAB;
-        border-radius: 50px;
-        padding: 10px;
-    }
+	#manager-btn {
+		background-color: wheat;
+		border: none;
+		color: #6D8B74;
+		padding: 15px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin-left: 40px;
+		margin-top: 40px;
+		cursor: pointer;
+	}
 
-    body {
-        background-color: #CABFAB;
-    }
+	#owner-btn {
+		background-color: wheat;
+		border: none;
+		color: #6D8B74;
+		padding: 15px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin-left: 1360px;
+		margin-top: 40px;
+		cursor: pointer;
+	}
 
-    #manager-btn {
-        background-color: #52575D;
-        border: 4px solid #41444B;
-        color: #CABFAB;
-        border-radius: 10px;
-        padding: 15px;
-        cursor: pointer;
-        font-size: 30px;
-        margin-top: 480px;
-        margin-left: 30px;
-        margin-right: 500px;
-    }
+	#testament, #amount {
+		border: 1px solid #6D8B74;
+		background-color: wheat;
+		border-radius: 4px;
+		color: #6D8B74;
+		box-sizing: border-box;
+		font-size: 30px;
+		padding: 12px 20px;
+		display: flex;
+		margin: auto;
+		margin-top: 30px;
+		width: 1000px;
+	}
 
-    #owner-btn {
-        background-color: #52575D;
-        border: 4px solid #41444B;
-        color: #CABFAB;
-        border-radius: 10px;
-        padding: 15px;
-        cursor: pointer;
-        font-size: 30px;
-        margin-top: 480px;
-        margin-left: 695px;
-    }
+	#connectWallet {
+		/* other styles */
+		animation: bounceInDown 0.5s ease-out;
+	}
 
-    @keyframes fadein-down {
-        0% {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+	@keyframes bounceInDown {
+		from {
+			transform: translateY(-2000px);
+		}
+		60% {
+			transform: translateY(30px);
+		}
+		75% {
+			transform: translateY(-10px);
+		}
+		90% {
+			transform: translateY(5px);
+		}
+		to {
+			transform: translateY(0);
+		}
+	}
 
-    body {
-        animation: fadein-down 1s ease-in-out;
-    }
 
 
 </style>

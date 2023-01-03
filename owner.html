@@ -211,72 +211,81 @@
 
 <style>
     body {
-        background-color: #52575D;
+        background-color: #5F7161;
         display: flex;
     }
 
-    #submitbtn {
-        background-color: #DFD8C8;
-        color: #41444B;
-        font-size: 30px;
-        border: 4px solid #CABFAB;
-        margin-top: 20px;
-        cursor: pointer;
-        padding: 15px;
-        margin-top: 50px;
-        border-radius: 10px;
+    #back-btn {
+        background-color: wheat;
+        color: #5F7161;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        margin-left: 1750px;
+        margin-top: 15px;
     }
 
     #form {
         display: flex;
         flex-direction: column;
-        margin-left: 500px;
-        border: 2px solid #CABFAB;
-        margin-top: 100px;
-        padding: 20px;
+        padding: 15px;
+        align-items: center;
+        margin-top: 250px;
+        border: 2px solid wheat;
         width: 700px;
-        border-radius: 20px;
+        margin-left: 600px;
     }
 
-    .Input {
-        background-color: #DFD8C8;
-        color: #41444B;
-        font-size: 30px;
-        border: 4px solid #CABFAB;
-        margin-top: 20px;
+    #form .Input {
+        width: 600px;
+        height: 30px;
+        font-size: 16px;
+        padding: 10px;
+        border: 1px solid wheat;
+        margin: 10px 0;
+        color: #5F7161;
+        background-color: wheat;
+    }
+
+    #submitbtn {
+        background-color: wheat;
+        color: #5F7161;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        margin: 20px 0;
         cursor: pointer;
-        padding: 15px;
-        margin-top: 50px;
-        border-radius: 10px;
     }
 
     #back-btn {
-        background-color: #DFD8C8;
-        color: #41444B;
-        font-size: 30px;
-        border: 4px solid #CABFAB;
-        margin-left: 1700px;
-        margin-top: 20px;
+        background-color: wheat;
+        color: #5F7161;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        margin-left: 1750px;
+        margin-top: 15px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    #back-btn:hover {
+        transform: scale(1.1);
+    }
+
+    #submitbtn {
+        background-color: wheat;
+        color: #5F7161;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        margin: 20px 0;
         cursor: pointer;
-        padding: 15px;
-        border-radius: 10px;
+        transition: all 0.3s ease-in-out;
     }
 
-    button {
-        animation: pulse 5s infinite;
-        animation-fill-mode: both;
-        animation-play-state: paused;
+    #submitbtn:hover {
+        transform: scale(1.1);
     }
 
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.1);
-        }
-        100% {
-            transform: scale(1);
-        }
-    }
+
 </style>
