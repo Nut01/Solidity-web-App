@@ -1,7 +1,7 @@
-// SPDX-License-Identifier: U
-pragma solidity ^0.8.13;
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.4.22 <0.9.0;
 
-contract Testament {
+contract Greeting {
     //  Create a Variable
     address public manager;
     mapping(address => address) _heir; // เก็บข้อมูลผู้รับมรดก
