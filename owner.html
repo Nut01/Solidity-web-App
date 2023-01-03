@@ -190,7 +190,7 @@
         const contract = new ethers.Contract(this.contractAddress, abi.IERC20, provider)
         const signer = provider.getSigner()
         const contractWithSigner = contract.connect(signer)
-        const tx = await contractWithSigner.createTestament(this.addressHeir, {value: ethers.utils.parseEther(this.amount2)})
+        const tx = await contractWithSigner.create(this.addressHeir, {value: ethers.utils.parseEther(this.amount2)})
         await tx.wait()
         alert('Created Testament')
     }
@@ -199,11 +199,12 @@
     <a href="index.html"><button id="back-btn">MENU</button></a>
 
     <!--Form-->
-    <form id="form">
+    <div id=form>
         <input x-model="addressHeir" class="Input" placeholder="Enter Heir Address"/>
         <input x-model="amount2" class="Input" placeholder="Enter Amount"/>
         <button @click=create id="submitbtn">Create Testament</button>
-    </form>
+    </div>
+    
     
 </body>
 </html>
