@@ -7,6 +7,290 @@
     <title>Create Your Testament</title>
 </head>
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.5.3/dist/ethers.umd.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@metamask/detect-provider@1.2.0/dist/detect-provider.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.8.1/dist/cdn.min.js" defer></script>
+
+    <script>
+        window.abi = {
+            'IERC20': [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "heir",
+                    "type": "address"
+                }
+            ],
+            "name": "create",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "heir",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "createTestament",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "report",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "heir",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "reportTestament",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "getTestament",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "heir",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+        }
+    </script>
+
+<div x-data="{
+	isConnected: false,
+	ethereum: null,
+	account: '',
+	contractAddress: '0xF45903febAe0726a8111991643ad785af3585f43',
+	amount: '',
+    amount2: '',
+    addressOwner: '',
+    addressHeir: '',
+	balance: ethers.BigNumber.from(0),
+	mytokenBalance: ethers.BigNumber.from(0),
+	async init () {
+		this.ethereum = await detectEthereumProvider()
+		window.provider = new ethers.providers.Web3Provider(this.ethereum)
+		const detectAccount = async () => {
+			try {
+			    await ethereum.request({
+                    		method: 'wallet_switchEthereumChain',
+                    		params: [{ chainId: '0xd904' }]
+			    });
+            		} catch (err) {
+                		if (err.code === 4902){ 
+                    			console.log('error:'+err.code)
+                    			try{ 
+                        			await ethereum.request({
+                            			method: 'wallet_addEthereumChain',
+                            			params: [
+							    {
+								chainId: '0xd904',
+								chainName: 'Rei Testnet',
+								nativeCurrency: {
+								    name:'tREI',
+								    symbol:'tREI',
+								    decimals: 18,
+								},
+								rpcUrls: [ 'https://rei-testnet-rpc.moonrhythm.io' ],
+								blockExplorerUrls: [ 'https://testnet.reiscan.com' ],
+							    },
+                            			],
+                        			});
+					    } catch(addError){
+						conosle.log('Add Error'+addError)
+					    }
+					}
+				}
+				const accounts = await ethereum.request({ method: 'eth_accounts' })
+				if (accounts.length === 0) {
+					this.isConnected = false
+					return
+				}
+				this.account = accounts[0]
+				this.isConnected = true
+			}
+		detectAccount()
+		this.ethereum.on('accountsChanged', async () => {
+			detectAccount()
+		})
+		setInterval(() => {
+		}, 5000)
+	},
+	async connect () {
+		await this.ethereum.request({ method: 'eth_requestAccounts' })
+	},
+    async getTestament () {
+        const contract = new ethers.Contract(this.contractAddress, abi, provider)
+        const testament = await contract.getTestament(this.account)
+        const heir = testament[0]
+        const amount = testament[1]
+        document.getElementById('testament').innerHTML = 'Your Testament: ' + heir + ' ' + amount
+    },
+    async report () {
+        const contract = new ethers.Contract(this.contractAddress, abi, provider)
+        const signer = provider.getSigner()
+        const contractWithSigner = contract.connect(signer)
+        const tx = await contractWithSigner.report(this.addressOwner)
+        await tx.wait()
+        alert('Reported Testament')
+    },
+    async create() {
+        const contract = new ethers.Contract(this.contractAddress, abi, provider)
+        const signer = provider.getSigner()
+        const contractWithSigner = contract.connect(signer)
+        const tx = await contractWithSigner.createTestament(this.addressHeir, {value: ethers.utils.parseEther(this.amount2)})
+        await tx.wait()
+        alert('Created Testament')
+    }
+	}">
+    
+    <a href="index.html"><button id="back-btn">MENU</button></a>
+
+    <!--Form-->
+    <form id="form">
+        <input x-model="addressHeir" class="Input" placeholder="Enter Heir Address"/>
+        <input x-model="amount2" class="Input" placeholder="Enter Amount"/>
+        <button id="submitbtn" @click=create>Create Testament</button>
+    </form>
     
 </body>
 </html>
+
+<style>
+    body {
+        background-color: #52575D;
+        display: flex;
+    }
+
+    #submitbtn {
+        background-color: #DFD8C8;
+        color: #41444B;
+        font-size: 30px;
+        border: 4px solid #CABFAB;
+        margin-top: 20px;
+        cursor: pointer;
+        padding: 15px;
+        margin-top: 50px;
+        border-radius: 10px;
+    }
+
+    #form {
+        display: flex;
+        flex-direction: column;
+        margin-left: 500px;
+        border: 2px solid #CABFAB;
+        margin-top: 100px;
+        padding: 20px;
+        width: 700px;
+        border-radius: 20px;
+    }
+
+    .Input {
+        background-color: #DFD8C8;
+        color: #41444B;
+        font-size: 30px;
+        border: 4px solid #CABFAB;
+        margin-top: 20px;
+        cursor: pointer;
+        padding: 15px;
+        margin-top: 50px;
+        border-radius: 10px;
+    }
+
+    #back-btn {
+        background-color: #DFD8C8;
+        color: #41444B;
+        font-size: 30px;
+        border: 4px solid #CABFAB;
+        margin-left: 1700px;
+        margin-top: 20px;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    button {
+        animation: pulse 5s infinite;
+        animation-fill-mode: both;
+        animation-play-state: paused;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+</style>

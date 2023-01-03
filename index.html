@@ -10,7 +10,7 @@
 
 <body>
 
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.5.3/dist/ethers.umd.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.5.3/dist/ethers.umd.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@metamask/detect-provider@1.2.0/dist/detect-provider.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.8.1/dist/cdn.min.js" defer></script>
 
@@ -175,35 +175,39 @@
 				}
 				this.account = accounts[0]
 				this.isConnected = true
-				this.reloadBalance()
-				this.reloadMyTokenBalance()
 			}
 		detectAccount()
 		this.ethereum.on('accountsChanged', async () => {
 			detectAccount()
 		})
 		setInterval(() => {
-			this.reloadBalance()
-			this.reloadMyTokenBalance()
 		}, 5000)
 	},
 	async connect () {
 		await this.ethereum.request({ method: 'eth_requestAccounts' })
 	},
+    async getTestament () {
+        const contract = new ethers.Contract(this.contractAddress, abi, provider)
+        const testament = await contract.getTestament(this.account)
+        const heir = testament[0]
+        const amount = testament[1]
+        document.getElementById('testament').innerHTML = 'Your Testament: ' + heir + ' ' + amount
+    },
 	}">
 
     <!-- ชื่อโปรเจ็ค -->
     <h1 id="header">Testament DAPP</h1>
 
     <!--ช่องค้นดูพินัยกรรม-->
-    <button id="submit-btn" onclick=getTestament>View Your Testament</button>
+    <button id="connect" @click=getTestament>View Your Testament</button>
+
+    <!-- ปุ่ม Connect MetaMask -->
+    <button id="connectWallet" x-show="!isConnected" @click=connect>Connect Wallet</button>
 
     <div id="testament"></div>
 
     <!--ปุ่มสำหรับ Manager -->
     <a href="manager.html"><button id="manager-btn" >Manage Testament</button></a>
-
-    <button id="connectWallet" @click=connect>Connect Wallet</button>
 
     <!--ปุ่มสำหรับคนอยากเป็น Owner-->
     <a href="owner.html"><button id="owner-btn">Want To Be Owner!!!</button></a>
@@ -222,7 +226,8 @@
         padding: 15px;
         cursor: pointer;
         font-size: 30px;
-        margin-right: 430px;
+        margin-left: 490px;
+        margin-top: 30px;
     }
 
     #testament {
@@ -238,7 +243,7 @@
         font-size: 30px;
     }
 
-    #submit-btn {
+    #connect {
         background-color: #52575D;
         border: 4px solid #41444B;
         color: #CABFAB;
@@ -285,6 +290,23 @@
         cursor: pointer;
         font-size: 30px;
         margin-top: 680px;
-        margin-right: 20px;
+        margin-left: 695px;
     }
+
+    @keyframes fadein-down {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    body {
+        animation: fadein-down 1s ease-in-out;
+    }
+
+
 </style>
