@@ -1,24 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DAPP Demo</title>
+    <title>Testament DAPP</title>
 </head>
+
 <body>
 
-    <h1>Dapp Demo</h1>
-    <br>
+    <!-- ชื่อโปรเจ็ค -->
+    <h1 id="header">Testament DAPP</h1>
+
+    <!--ช่องค้นดูพินัยกรรม-->
     <form id="form">
-        <input type="text" id="Heir">
-        <input type="submit" value="Submit">
+        <input type="text" id="owner-address" placeholder="Enter Owner Address">
+        <input type="submit" value="submit" id="submit-btn">
     </form>
 
+    <!--ปุ่มสำหรับ Manager -->
+    <button id="manager-btn">Manage Testament</button>
+
+    <!--ปุ่มสำหรับคนอยากเป็น Owner-->
+    <button id="owner-btn">Want To Be Owner</button>
+
+
+
+    <!--Script สำหรับดึง Smart Contract มาใช้-->
     <script src="node_modules/jquery/dist/jquery.min.js" type="text/javascript"></script>
     <script src="node_modules/web3/dist/web3.min.js" type="text/javascript"></script>
     <script src="src/utils.js" type="text/javascript"></script>
     <script src="src/index.js" type="text/javascript"></script>
 
 </body>
+
 </html>
+
+<style>
+    #form {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+        font-size: 30px;
+    }
+
+    #owner-address {
+        margin-right: 20px;
+        font-size: 30px;
+        color: #CABFAB;
+        background-color: #52575D;
+        border: 4px solid #41444B;
+    }
+
+    #submit-btn {
+        background-color: #52575D;
+        border: 4px solid #41444B;
+        color: #CABFAB;
+        border-radius: 10px;
+        padding: 15px;
+        cursor: pointer;
+        font-size: 30px;
+    }
+
+    #header {
+        text-align: center;
+        border: 3px ridge #41444B;
+        background-color: #52575D;
+        color: #CABFAB;
+        border-radius: 50px;
+        padding: 10px;
+    }
+
+    body {
+        background-color: #CABFAB;
+    }
+
+    #manager-btn {
+        background-color: #52575D;
+        border: 4px solid #41444B;
+        color: #CABFAB;
+        border-radius: 10px;
+        padding: 15px;
+        cursor: pointer;
+        font-size: 30px;
+        margin-top: 700px;
+        margin-left: 30px;
+        margin-right: 1220px;
+    }
+
+    #owner-btn {
+        background-color: #52575D;
+        border: 4px solid #41444B;
+        color: #CABFAB;
+        border-radius: 10px;
+        padding: 15px;
+        cursor: pointer;
+        font-size: 30px;
+        margin-top: 680px;
+        margin-right: 20px;
+    }
+</style>
