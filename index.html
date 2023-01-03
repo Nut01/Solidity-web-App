@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testament DAPP</title>
+</head>
+
+<body>
+
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.5.3/dist/ethers.umd.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@metamask/detect-provider@1.2.0/dist/detect-provider.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.8.1/dist/cdn.min.js" defer></script>
+
+<script>
+	window.abi = {
+		'IERC20': [
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "heir",
+				"type": "address"
+			}
+		],
+		"name": "create",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "heir",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "createTestament",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "report",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "heir",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "reportTestament",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "getTestament",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "heir",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+	}
+</script>
+
+<div x-data="{
+	isConnected: false,
+	ethereum: null,
+	account: '',
+	contractAddress: '0xF45903febAe0726a8111991643ad785af3585f43',
+	amount: '',
+	balance: ethers.BigNumber.from(0),
+	mytokenBalance: ethers.BigNumber.from(0),
+	async init () {
+		this.ethereum = await detectEthereumProvider()
+		window.provider = new ethers.providers.Web3Provider(this.ethereum)
+		const detectAccount = async () => {
+			try {
+			    await ethereum.request({
+                    		method: 'wallet_switchEthereumChain',
+                    		params: [{ chainId: '0xd904' }]
+			    });
+            		} catch (err) {
+                		if (err.code === 4902){ 
+                    			console.log('error:'+err.code)
+                    			try{ 
+                        			await ethereum.request({
+                            			method: 'wallet_addEthereumChain',
+                            			params: [
+							    {
+								chainId: '0xd904',
+								chainName: 'Rei Testnet',
+								nativeCurrency: {
+								    name:'tREI',
+								    symbol:'tREI',
+								    decimals: 18,
+								},
+								rpcUrls: [ 'https://rei-testnet-rpc.moonrhythm.io' ],
+								blockExplorerUrls: [ 'https://testnet.reiscan.com' ],
+							    },
+                            			],
+                        			});
+					    } catch(addError){
+						conosle.log('Add Error'+addError)
+					    }
+					}
+				}
+				const accounts = await ethereum.request({ method: 'eth_accounts' })
+				if (accounts.length === 0) {
+					this.isConnected = false
+					return
+				}
+				this.account = accounts[0]
+				this.isConnected = true
+				this.reloadBalance()
+				this.reloadMyTokenBalance()
+			}
+		detectAccount()
+		this.ethereum.on('accountsChanged', async () => {
+			detectAccount()
+		})
+		setInterval(() => {
+			this.reloadBalance()
+			this.reloadMyTokenBalance()
+		}, 5000)
+	},
+	async connect () {
+		await this.ethereum.request({ method: 'eth_requestAccounts' })
+	},
+	}">
+
+    <!-- ชื่อโปรเจ็ค -->
+    <h1 id="header">Testament DAPP</h1>
+
+    <!--ช่องค้นดูพินัยกรรม-->
+    <button id="submit-btn" onclick=getTestament>View Your Testament</button>
+
+    <div id="testament"></div>
+
+    <!--ปุ่มสำหรับ Manager -->
+    <a href="manager.html"><button id="manager-btn" >Manage Testament</button></a>
+
+    <button id="connectWallet" @click=connect>Connect Wallet</button>
+
+    <!--ปุ่มสำหรับคนอยากเป็น Owner-->
+    <a href="owner.html"><button id="owner-btn">Want To Be Owner!!!</button></a>
+
+    </div>
+</body>
+
+</html>
+
+<style>
+    #connectWallet {
+        background-color: #52575D;
+        border: 4px solid #41444B;
+        color: #CABFAB;
+        border-radius: 10px;
+        padding: 15px;
+        cursor: pointer;
+        font-size: 30px;
+        margin-right: 430px;
+    }
+
+    #testament {
+        display: flex;
+        justify-content: center;
+
+    }
+
+    #form {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+        font-size: 30px;
+    }
+
+    #submit-btn {
+        background-color: #52575D;
+        border: 4px solid #41444B;
+        color: #CABFAB;
+        border-radius: 10px;
+        padding: 15px;
+        cursor: pointer;
+        font-size: 30px;
+        margin-top: 30px;
+        margin-left: 780px;
+    }
+
+    #header {
+        text-align: center;
+        border: 3px ridge #41444B;
+        background-color: #52575D;
+        color: #CABFAB;
+        border-radius: 50px;
+        padding: 10px;
+    }
+
+    body {
+        background-color: #CABFAB;
+    }
+
+    #manager-btn {
+        background-color: #52575D;
+        border: 4px solid #41444B;
+        color: #CABFAB;
+        border-radius: 10px;
+        padding: 15px;
+        cursor: pointer;
+        font-size: 30px;
+        margin-top: 700px;
+        margin-left: 30px;
+        margin-right: 500px;
+    }
+
+    #owner-btn {
+        background-color: #52575D;
+        border: 4px solid #41444B;
+        color: #CABFAB;
+        border-radius: 10px;
+        padding: 15px;
+        cursor: pointer;
+        font-size: 30px;
+        margin-top: 680px;
+        margin-right: 20px;
+    }
+</style>
