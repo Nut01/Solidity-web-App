@@ -185,15 +185,8 @@
 	async connect () {
 		await this.ethereum.request({ method: 'eth_requestAccounts' })
 	},
-    async getTestament () {
-        const contract = new ethers.Contract(this.contractAddress, abi, provider)
-        const testament = await contract.getTestament(this.account)
-        const heir = testament[0]
-        const amount = testament[1]
-        document.getElementById('testament').innerHTML = 'Your Testament: ' + heir + ' ' + amount
-    },
     async report () {
-        const contract = new ethers.Contract(this.contractAddress, abi, provider)
+        const contract = new ethers.Contract(this.contractAddress, abi.IERC20, provider)
         const signer = provider.getSigner()
         const contractWithSigner = contract.connect(signer)
         const tx = await contractWithSigner.report(this.addressOwner)
@@ -208,7 +201,7 @@
 
     <!--Report Btn-->
     <input x-model="addressOwner" id="owneraddress" placeholder="Enter Owner Address"/>
-    <button id="report" @click="report">Report Testament To Heir</button>
+    <button @click="report" id="report">Report Testament To Heir</button>
 
     </div>
 </body>
