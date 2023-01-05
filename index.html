@@ -209,10 +209,11 @@
 	<div id="amount" x-show="isConnected"></div>
 
     <!--ปุ่มสำหรับ Manager -->
-    <a href="manager.html"><button id="manager-btn" x-show="isConnected" >Manage Testament</button></a>
-
-    <!--ปุ่มสำหรับคนอยากเป็น Owner-->
-    <a href="owner.html"><button id="owner-btn" x-show="isConnected">Want To Be Owner!!!</button></a>
+    <div id="btn">
+		<a href="manager.html"><button id="manager-btn" x-show="isConnected" >Manage Testament</button></a>
+		<!--ปุ่มสำหรับคนอยากเป็น Owner-->
+		<a href="owner.html"><button id="owner-btn" x-show="isConnected">Want To Be Owner!!!</button></a>
+	</div>
 
     </div>
 </body>
@@ -222,6 +223,10 @@
 <style>
 	body {
 		background-color: #5F7161;
+	}
+
+	#btn {
+		display:flex;
 	}
 
 	#header {
@@ -234,7 +239,7 @@
 		border-radius: 15px;
 		width: 500px;
 		margin: auto;
-		margin-top: 250px;
+		margin-top: 150px;
 	}
 
 	#view-btn {
@@ -245,10 +250,11 @@
 		text-align: center;
 		text-decoration: none;
 		display: flex;
-		font-size: 16px;
+		font-size: 25px;
 		margin: auto;
 		cursor: pointer;
-		margin-top: 30px;
+		margin-top: 100px;
+		border-radius: 5px;
 	}
 
 	#connectWallet{
@@ -259,10 +265,11 @@
 		text-align: center;
 		text-decoration: none;
 		display: inline-block;
-		font-size: 16px;
-		margin-left: 850px;
-		margin-top: 30px;
+		font-size: 25px;
+		margin-left: 815px;
+		margin-top: 100px;
 		cursor: pointer;
+		border-radius: 5px;
 	}
 
 	#manager-btn {
@@ -271,12 +278,11 @@
 		color: #6D8B74;
 		padding: 15px 32px;
 		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 16px;
+		font-size: 25px;
 		margin-left: 40px;
-		margin-top: 40px;
+		margin-top: 100px;
 		cursor: pointer;
+		border-radius: 5px;
 	}
 
 	#owner-btn {
@@ -285,31 +291,30 @@
 		color: #6D8B74;
 		padding: 15px 32px;
 		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 16px;
-		margin-left: 1360px;
-		margin-top: 40px;
+		font-size:25px;
+		margin-left: 1200px;
+		margin-top: 100px;
 		cursor: pointer;
+		border-radius: 5px;
 	}
 
 	#testament, #amount {
 		border: 1px solid #6D8B74;
 		background-color: wheat;
-		border-radius: 4px;
+		border-radius: 5px;
 		color: #6D8B74;
 		box-sizing: border-box;
 		font-size: 30px;
 		padding: 12px 20px;
 		display: flex;
 		margin: auto;
-		margin-top: 30px;
+		margin-top: 50px;
 		width: 1000px;
 	}
 
 	#connectWallet {
 		/* other styles */
-		animation: bounceInDown 0.5s ease-out;
+		animation: bounceInDown 1s ease-in-out;
 	}
 
 	@keyframes bounceInDown {
@@ -330,6 +335,75 @@
 		}
 	}
 
+	#header {
+		animation: bounceInUp 1s ease-in-out;
+	}
 
+	@keyframes bounceInUp {
+		from {
+			transform: translateY(-2000px);
+		}
+		60% {
+			transform: translateY(30px);
+		}
+		75% {
+			transform: translateY(-10px);
+		}
+		90% {
+			transform: translateY(5px);
+		}
+		to {
+			transform: translateY(0);
+		}
+	}
+
+	#view-btn:hover, #manager-btn:hover, #owner-btn:hover {
+		background-color: #6D8B74;
+		color: wheat;
+	}
+
+	#view-btn, #manager-btn, #owner-btn {
+		animation: backInUp 1.5s ease-in-out;
+	}
+
+	@keyframes backInUp {
+		from {
+			transform: translateY(-2000px);
+		}
+		60% {
+			transform: translateY(30px);
+		}
+		75% {
+			transform: translateY(-10px);
+		}
+		90% {
+			transform: translateY(5px);
+		}
+		to {
+			transform: translateY(0);
+		}
+	}
+
+	#testament, #amount {
+		animation: backInDown 2s ease-in-out;
+	}
+
+	@keyframes backInDown {
+		from {
+			transform: translateY(-2000px);
+		}
+		60% {
+			transform: translateY(30px);
+		}
+		75% {
+			transform: translateY(-10px);
+		}
+		90% {
+			transform: translateY(5px);
+		}
+		to {
+			transform: translateY(0);
+		}
+	}
 
 </style>
