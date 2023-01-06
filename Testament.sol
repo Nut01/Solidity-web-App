@@ -12,14 +12,14 @@ contract Testament {
         address indexed owner,
         address indexed heir,
         uint256 amount
-    ); // สร่าง Event เพื่อแจ้งเตือนว่า มรดกถูกสร้างแล้ว ใส่ indexed เพื่อให้สามารถค้นหาข้อมูล Address ได้
+    ); // สร่าง Event เพื่อแจ้งเตือนว่า มรดกถูกสร้างแล้ว ใส่ indexed เพื่อให้สามารถตรวจสอบข้อมูล Address ได้
 
     // Create Event for Report
     event reportTestament(
         address indexed owner,
         address indexed heir,
         uint256 amount
-    ); // สร่าง Event เพื่อตรวจสอบว่า มรดกถูกโอนให้ผู้รับมรดกแล้ว
+    ); // สร่าง Event เพื่อแจ้งเตือนว่า มรดกถูกโอนให้ผู้รับมรดกแล้ว
 
     // Create a Constructor
     constructor() {
@@ -28,7 +28,7 @@ contract Testament {
 
     // Function for Owner Create Testament
     function create(address heir) public payable {
-        require(msg.value > 0, "Please enter more than 0 ETH."); // สร้าง requirement ให้มีมูลค่ามากกว่า 0 ETH
+        require(msg.value > 0, "Please enter more than 0 ETH."); // สร้าง requirement ให้มีมูลค่ามากกว่า 0 TREI
         require(balance[msg.sender] <= 0, "You already have a testament."); // สร้าง requirement ห้ามเขียนพินัยกรรมซ้ำ
         _heir[msg.sender] = heir; // เก็บข้อมูลเลขกระเป๋าผู้รับมรดก
         balance[msg.sender] = msg.value; // เก็บข้อมูลมูลค่ามรดก
@@ -42,13 +42,13 @@ contract Testament {
         returns (address heir, uint256 amount)  
     {
         // สร้าง Function สำหรับดูข้อมูลพินัยกรรม
-        return (_heir[owner], balance[owner]); // ส่งข้อมูลผู้รับมรดก และ มูลค่ามรดก ระบุด้วยเจ้าของมรดก
+        return (_heir[owner], balance[owner]); // ส่งข้อมูลผู้รับมรดก และ มูลค่ามรดก กลับไป ระบุด้วยเลขกระเป๋าเจ้าของมรดก
     }
 
     // Function for Manager to Report Testament to Heir
     function report(address owner) public {
-        require(msg.sender == manager, "You are not the manager."); // สร้าง requirement ให้เป็นผู้จัดการเท่านั้น
-        require(balance[owner] > 0, "This owner does not have a testament."); // สร้าง requirement ให้เจ้าของมรดกมีพินัยกรรม
+        require(msg.sender == manager, "You are not the manager."); // สร้าง requirement ว่าเป็นเลขกระเป๋าผู้จัดการเท่านั้น
+        require(balance[owner] > 0, "This owner does not have a testament."); // สร้าง requirement ว่าเจ้าของมรดกมีพินัยกรรม
         emit reportTestament(owner, _heir[owner], balance[owner]); // เรียกใช้ Event reportTestament
         payable(_heir[owner]).transfer(balance[owner]); // โอนมรดกให้ผู้รับมรดก
         balance[owner] = 0; // ลบข้อมูลมรดก
