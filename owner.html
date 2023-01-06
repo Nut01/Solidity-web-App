@@ -198,6 +198,8 @@
     
     <a href="index.html"><button id="back-btn">MENU</button></a>
 
+    <h1 id="header">Testament DAPP</h1>
+    
     <!--Form-->
     <div id=form>
         <input x-model="addressHeir" class="Input" placeholder="Enter Heir Address"/>
@@ -209,89 +211,4 @@
 </body>
 </html>
 
-<style>
-    body {
-        background-color: #5F7161;
-        display: flex;
-    }
-
-    #form {
-        display: flex;
-        flex-direction: column;
-        padding: 15px;
-        align-items: center;
-        margin-top: 250px;
-        border: 2px solid wheat;
-        width: 700px;
-        margin-left: 600px;
-        border-radius: 10px;
-        animation: fadeInUpBig 2s ease-in-out;
-    }
-
-    #form .Input {
-        width: 600px;
-        height: 30px;
-        font-size: 25px;
-        padding: 10px;
-        border: 1px solid wheat;
-        margin: 10px 0;
-        color: #5F7161;
-        background-color: wheat;
-        border-radius: 5px;
-    }
-
-    #back-btn {
-        background-color: wheat;
-        color: #5F7161;
-        font-size: 25px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        margin-left: 1700px;
-        margin-top: 15px;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-        animation: fadeInUpBig 1s ease-in-out;
-    }
-
-    #back-btn:hover {
-        transform: scale(1.1);
-    }
-
-    #submitbtn {
-        background-color: wheat;
-        color: #5F7161;
-        font-size: 25px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        margin: 20px 0;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-        animation: fadeInUpBig 1s ease-in-out;
-    }
-
-    #submitbtn:hover {
-        transform: scale(1.1);
-    }
-
-    @keyframes fadeInUpBig {
-        from {
-			transform: translateY(-2000px);
-		}
-		60% {
-			transform: translateY(30px);
-		}
-		75% {
-			transform: translateY(-10px);
-		}
-		90% {
-			transform: translateY(5px);
-		}
-		to {
-			transform: translateY(0);
-		}
-	}
-
-
-</style>
+<link rel="stylesheet" href="css/ownerStyle.css">

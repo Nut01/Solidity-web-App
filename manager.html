@@ -195,9 +195,10 @@
     },
 	}">
 
-
     <!--ปุ่มกลับเมนูหลัก-->
     <a href="index.html"><button id="back-btn">MENU</button></a>
+
+    <h1 id="header">Testament DAPP</h1>
 
     <!--Report Btn-->
     <input x-model="addressOwner" id="owneraddress" placeholder="Enter Owner Address"/>
@@ -207,87 +208,4 @@
 </body>
 </html>
 
-<style>
-    body {
-        background-color: #5F7161;
-        display: flex;
-    }
-
-    #back-btn {
-        background-color: wheat;
-        color: #6D8B74;
-        font-size: 25px;
-        padding: 10px 20px;
-        border: none;
-        margin-left: 1700px;
-        margin-top: 15px;
-        cursor: pointer;
-        border-radius: 5px;
-        animation: backInUp 1s ease-in-out;
-    }
-
-    #owneraddress {
-        width: 700px;
-        height: 30px;
-        font-size: 25px;
-        padding: 10px;
-        border: 1px solid wheat;
-        border-radius: 5px;
-        color: #6D8B74;
-        margin-top: 300px;
-        margin-left: 410px;
-        background-color: wheat;
-        animation: backInUp 1.5s ease-in-out;
-    }
-
-    #report {
-        background-color: wheat;
-        color: #6D8B74;
-        font-size: 25px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        animation: backInUp 1s ease-in-out;
-        margin-left: 40px;
-        cursor: pointer;
-    }
-
-    @keyframes backInUp {
-        from {
-            margin-left: 100%;
-        }
-        to {
-            margin-left: 1750px;
-        }
-    }
-
-    #back-btn:hover {
-        background-color: #6D8B74;
-        color: wheat;
-    }
-
-    #report:hover {
-        background-color: #6D8B74;
-        color: wheat;
-    }
-
-    @keyframes backInUp {
-		from {
-			transform: translateY(-2000px);
-		}
-		60% {
-			transform: translateY(30px);
-		}
-		75% {
-			transform: translateY(-10px);
-		}
-		90% {
-			transform: translateY(5px);
-		}
-		to {
-			transform: translateY(0);
-		}
-	}
-
-
-</style>
+<link rel="stylesheet" href="css/managerStyle.css">

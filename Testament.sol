@@ -12,14 +12,14 @@ contract Testament {
         address indexed owner,
         address indexed heir,
         uint256 amount
-    ); // สร้าง Event เพื่ออยากทราบว่า เจ้าของมรดกเป็นใคร ทายาทผู้รับมรดกเป็นใคร
+    ); // สร่าง Event เพื่อแจ้งเตือนว่า มรดกถูกสร้างแล้ว ใส่ indexed เพื่อให้สามารถค้นหาข้อมูล Address ได้
 
     // Create Event for Report
     event reportTestament(
         address indexed owner,
         address indexed heir,
         uint256 amount
-    ); // สร่าง Event เพื่ออยากทราบว่า เจ้าของมรดกเป็นใคร ทายาทผู้รับมรดกเป็นใคร
+    ); // สร่าง Event เพื่อตรวจสอบว่า มรดกถูกโอนให้ผู้รับมรดกแล้ว
 
     // Create a Constructor
     constructor() {
@@ -30,16 +30,16 @@ contract Testament {
     function create(address heir) public payable {
         require(msg.value > 0, "Please enter more than 0 ETH."); // สร้าง requirement ให้มีมูลค่ามากกว่า 0 ETH
         require(balance[msg.sender] <= 0, "You already have a testament."); // สร้าง requirement ห้ามเขียนพินัยกรรมซ้ำ
-        _heir[msg.sender] = heir; // เก็บข้อมูลผู้รับมรดก
-        balance[msg.sender] = msg.value; // เก็บข้อมูลมรดก
+        _heir[msg.sender] = heir; // เก็บข้อมูลเลขกระเป๋าผู้รับมรดก
+        balance[msg.sender] = msg.value; // เก็บข้อมูลมูลค่ามรดก
         emit createTestament(msg.sender, heir, msg.value); // เรียกใช้ Event
     }
 
-    // Funcction getTestament
-    function getTestament(address owner)
+    // Function getTestament
+    function getTestament(address owner) 
         public
         view
-        returns (address heir, uint256 amount)
+        returns (address heir, uint256 amount)  
     {
         // สร้าง Function สำหรับดูข้อมูลพินัยกรรม
         return (_heir[owner], balance[owner]); // ส่งข้อมูลผู้รับมรดก และ มูลค่ามรดก ระบุด้วยเจ้าของมรดก
